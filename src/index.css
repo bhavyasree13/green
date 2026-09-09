@@ -63,6 +63,8 @@ h2{font-size:23px;margin:0}
 .icon i{position:absolute;right:7px;top:6px;width:5px;height:5px;background:var(--brand-text);border-radius:50%}
 .content{padding:25px 29px;max-width:1500px;margin:auto}
 .top{display:flex;justify-content:space-between;align-items:start;margin-bottom:18px}
+.jobPicker{display:flex;flex-direction:column;gap:6px;color:var(--text-3);font-size:10px}
+.jobPicker select{min-width:min(360px,52vw);font-size:11px}
 .top p{margin:5px 0}
 
 /* ---------- buttons ---------- */
@@ -83,6 +85,13 @@ h2{font-size:23px;margin:0}
 /* ---------- panels ---------- */
 .grid{display:grid;grid-template-columns:1.5fr 1fr;gap:13px;margin-bottom:13px}
 .panel{background:var(--ink);border:1px solid var(--line-4);border-radius:9px;padding:16px;margin-bottom:13px}
+/* profile header card */
+.profileHead{display:flex;align-items:center;gap:18px;background:var(--ink);border:1px solid var(--line-4);border-radius:9px;padding:20px;margin-bottom:13px}
+.profileAvatar{flex:none;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#233A29;color:#B9E768;font-size:19px;font-weight:800;letter-spacing:.5px}
+.profileHead h2{margin:0}
+.profileHead>div>p{margin:4px 0 0}
+.profileMeta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+@media(max-width:900px){.profileHead{flex-wrap:wrap}.profileHead .decisionStats{margin-left:0;width:100%;gap:20px}}
 .panel h3{font-size:14px;margin:0 0 16px}
 
 /* ---------- donut + legend ---------- */
@@ -229,8 +238,12 @@ td small{display:block;color:var(--text-4);font-size:10px;margin-top:3px}
 .toast{position:fixed;right:22px;bottom:22px;background:#142B1D;border:1px solid #4F762E;color:var(--brand-text);padding:10px 13px;border-radius:8px;display:flex;gap:7px;align-items:center;font-size:12px}
 
 /* ---------- login ---------- */
-.login{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;background:var(--ink)}
-.hero{padding:45px;display:flex;flex-direction:column;background:radial-gradient(circle at 40% 40%,#0f3517,transparent 38%),linear-gradient(140deg,#0a2113,var(--ink) 70%)}
+/* hero column tracks the poster's own aspect ratio (998x941), so the image
+   fills top-to-bottom and edge-to-edge with no bars and no cropping.
+   clamp() keeps the column sane on very short or very tall windows. */
+.login{min-height:100vh;display:grid;grid-template-columns:clamp(34vw,calc(100vh * 998 / 941),56vw) 1fr;background:var(--ink)}
+.hero{height:100vh;overflow:hidden;padding:0;background:var(--ink)}
+.landingHeroImage{display:block;width:100%;height:100%;min-height:0;object-fit:cover;object-position:center}
 .heroText{margin:auto 0;max-width:600px}
 .heroText small{color:var(--brand-text);letter-spacing:1.2px;font-size:10px}
 .heroText h1{font-size:48px;line-height:1.05;letter-spacing:-1.5px}
@@ -266,3 +279,131 @@ td small{display:block;color:var(--text-4);font-size:10px;margin-top:3px}
   .details{grid-template-columns:1fr 1fr}
   .submitbar{flex-direction:column;gap:10px;align-items:flex-start}
 }
+/* ---------- role-aware UI additions ---------- */
+.roleBadge{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1px solid var(--line-2);background:var(--raised);border-radius:7px;color:var(--brand-text);font-size:11px;font-weight:700}
+.statusSummary{display:grid;gap:10px;padding:8px}.statusSummary div{display:flex;justify-content:space-between;border-bottom:1px solid var(--line-3);padding:9px 3px;color:var(--text-2);font-size:12px}.statusSummary b{color:var(--text)}
+.split{display:grid;grid-template-columns:330px 1fr;gap:13px;margin-bottom:13px}.jobPick{display:grid;gap:4px}.pick{background:transparent;border:1px solid transparent;color:var(--text);padding:11px;text-align:left;border-radius:7px;display:flex;justify-content:space-between;align-items:center}.pick:hover,.pick.on{background:var(--brand-soft);border-color:var(--brand-edge)}.pick div{display:grid;gap:3px}.pick small{color:var(--text-3);font-size:10px}.pick em{font-style:normal;color:var(--brand-text);font-size:10px}
+.adminControls{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.adminControls label{display:flex;flex-direction:column;gap:6px;color:#7f8e85;font-size:11px}.sourceRow{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line-3);font-size:12px}.sourceRow span{color:var(--text-3)}.healthy{color:var(--brand-text)!important}.inlineCheck{display:flex;gap:8px;align-items:center;color:#CBD6DE;font-size:12px}.inlineCheck input{accent-color:var(--brand)}
+.dangerBtn{border:1px solid #63342e;background:#351d1a;color:#ed8a7b;border-radius:7px;padding:10px 13px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12px}.jobActions{margin-top:18px}.reportGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.reportCard{display:flex;align-items:center;gap:11px;background:var(--ink);border:1px solid var(--line-4);border-radius:9px;padding:15px}.reportCard>svg{color:var(--brand-text)}.reportCard div{flex:1;display:grid;gap:4px}.reportCard small{font-size:10px;color:var(--text-4)}.reportCard .link{margin-left:auto}
+.fields.single{grid-template-columns:1fr}.panel>.fields{margin-bottom:0}
+/* submit-workload form layout */
+.fields.three{grid-template-columns:repeat(3,1fr)}
+.fields .wide{grid-column:1/-1}
+@media(max-width:1200px){.fields.three{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.fields.three{grid-template-columns:1fr}}
+@media(max-width:1000px){.split{grid-template-columns:1fr}.adminControls{grid-template-columns:1fr 1fr}.reportGrid{grid-template-columns:1fr}}
+
+/* ---------- dashboard job status donut ---------- */
+.statusChart{display:grid;grid-template-columns:190px 1fr;align-items:center;gap:18px;min-height:210px}
+.statusDonut{position:relative;width:190px;height:210px}
+.statusCenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding-bottom:2px}
+.statusCenter b{font-size:25px}
+.statusCenter small{color:var(--text-3);font-size:10px;margin-top:2px}
+.statusLegend{display:grid;gap:11px}
+.statusLegendRow{display:flex;justify-content:space-between;align-items:center;color:var(--text-2);font-size:12px}
+.statusLegendRow span{display:flex;align-items:center;gap:8px}
+.statusLegendRow i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.statusLegendRow b{color:var(--text)}
+@media(max-width:900px){.statusChart{grid-template-columns:190px 1fr}}
+@media(max-width:600px){.statusChart{grid-template-columns:1fr}.statusDonut{margin:auto}}
+
+/* ---------- users & access ---------- */
+.userTableSummary{display:flex;gap:18px;align-items:center;padding:0 0 12px;color:var(--text-3);font-size:10px}.userTableSummary span{display:flex;align-items:center;gap:6px}.activeDot,.inactiveDot{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--brand-text)}.inactiveDot{background:#718078}.statusDot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px}.statusDot.active{background:var(--brand-text)}.statusDot.inactive{background:#718078}.inactiveText{color:#8b9893!important}
+.modalBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}.modal{width:min(620px,94vw);max-height:88vh;overflow:auto;background:#0b1814;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 24px 70px rgba(0,0,0,.45);padding:22px}.modalHead{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:20px}.modalHead h2{margin:3px 0 5px;font-size:20px}.modalHead p{margin:0;color:var(--text-3);font-size:11px}.eyebrow{color:var(--brand-text);font-size:9px;font-weight:800;letter-spacing:1.3px}.modalFields{grid-template-columns:1fr 1fr}.modalNote{display:flex;gap:9px;align-items:center;margin:17px 0;padding:11px 12px;background:var(--brand-soft);border:1px solid var(--brand-edge);border-radius:7px;color:var(--text-3);font-size:10px}.modalNote svg{color:var(--brand-text);flex:none}.profileModal{width:min(680px,94vw)}.profileIdentity{display:flex;gap:12px;align-items:center;padding:13px;background:var(--raised);border:1px solid var(--line-3);border-radius:9px;margin-bottom:18px}.profileIdentity>span{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand-text);font-weight:800}.profileIdentity div{display:grid;gap:4px}.profileIdentity small{font-size:10px}.profileDetails{grid-template-columns:1fr 1fr;margin-bottom:0}.profileActions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:15px;border-top:1px solid var(--line-3)}
+@media(max-width:650px){.modalFields{grid-template-columns:1fr}.profileDetails{grid-template-columns:1fr}.userTableSummary{flex-wrap:wrap}}
+
+
+/* Users & Teams interactions */
+.userProfileLink{background:none;border:0;padding:0;text-align:left;color:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.userProfileLink:hover b{text-decoration:underline}
+.userProfileLink small{color:var(--muted);font-size:12px}
+.mutedStatus{color:#718078}
+.modalBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.58);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+.modal{width:min(720px,94vw);max-height:90vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.modalHead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.modalHead h2{margin:4px 0 6px}
+.modalHead p{margin:0;color:var(--muted)}
+.profileModal{width:min(650px,94vw)}
+
+/* Notifications & Access toggles */
+.toggleList{display:grid;gap:0}
+.toggleRow{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 4px;border-bottom:1px solid var(--line-3)}
+.toggleRow:last-child{border-bottom:0}
+.toggleRow>div{display:grid;gap:4px}
+.toggleRow b{font-size:12px}
+.toggleRow small{color:var(--text-3);font-size:10px;line-height:1.5}
+.toggle{width:42px;height:23px;border:0;border-radius:999px;background:#26352f;padding:3px;cursor:pointer;transition:.18s}
+.toggle span{display:block;width:17px;height:17px;border-radius:50%;background:#87958f;transition:.18s}
+.toggle.on{background:var(--brand)}
+.toggle.on span{transform:translateX(19px);background:white}
+.accessCard{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid var(--line-3)}
+.accessCard:last-child{border-bottom:0}
+.accessCard>svg{color:var(--brand-text);flex:none}
+.accessCard>div{display:grid;gap:3px;flex:1}
+.accessCard small{color:var(--text-3);font-size:10px;line-height:1.45}
+.accessBadge{font-size:8px;font-weight:800;letter-spacing:.8px;color:var(--brand-text);border:1px solid var(--brand-edge);padding:5px 7px;border-radius:5px}
+.filterBar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.filterBar button{border:1px solid var(--line-2);background:var(--surface);color:var(--text-3);padding:7px 11px;border-radius:6px;font-size:10px;cursor:pointer}
+.filterBar button.filterActive{background:var(--brand-soft);border-color:var(--brand-edge);color:var(--brand-text)}
+.modal textarea{width:100%;min-height:80px;resize:vertical;background:var(--raised);border:1px solid var(--line-2);color:var(--text);border-radius:7px;padding:9px;font:inherit}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.dangerBtn{border:1px solid rgba(224,123,109,.4);background:rgba(224,123,109,.1);color:#e07b6d;padding:9px 12px;border-radius:7px;cursor:pointer}
+
+/* Job Monitoring schedule-management modal */
+.modal .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal .fields>*:last-child{grid-column:1/-1}
+@media(max-width:650px){.modal .fields{grid-template-columns:1fr}.modal .fields>*:last-child{grid-column:auto}}
+
+
+/* Users & Teams interactions */
+.userProfileLink{background:none;border:0;padding:0;text-align:left;color:inherit;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.userProfileLink:hover b{text-decoration:underline}
+.userProfileLink small{color:#78867e;font-size:12px}
+.mutedStatus{color:#718078}
+.modalBackdrop{position:fixed;inset:0;background:rgba(0,0,0,.58);display:flex;align-items:center;justify-content:center;z-index:1000;padding:24px}
+.modal{width:min(720px,94vw);max-height:90vh;overflow:auto;background:#0b1510;border:1px solid #1d2d23;border-radius:14px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.modalHead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.modalHead h2{margin:4px 0 6px}
+.modalHead p{margin:0;color:#78867e}
+.profileModal{width:min(650px,94vw)}
+
+/* Notifications & Access toggles */
+.toggleList{display:grid;gap:0}
+.toggleRow{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 4px;border-bottom:1px solid #18271e}
+.toggleRow:last-child{border-bottom:0}
+.toggleRow>div{display:grid;gap:4px}
+.toggleRow b{font-size:12px}
+.toggleRow small{color:#637269;font-size:10px;line-height:1.5}
+.toggleRow small{display:block;margin-top:3px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.toggle{width:42px;height:23px;border:0;border-radius:999px;background:#26352f;padding:3px;cursor:pointer;transition:.18s}
+.toggle span{display:block;width:17px;height:17px;border-radius:50%;background:#87958f;transition:.18s}
+.toggle.on{background:#7FBF3F}
+.toggle.on span{transform:translateX(19px);background:white}
+.accessCard{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid #18271e}
+.accessCard:last-child{border-bottom:0}
+.accessCard>svg{color:#9bda58;flex:none}
+.accessCard>div{display:grid;gap:3px;flex:1}
+.accessCard small{color:#637269;font-size:10px;line-height:1.45}
+.accessBadge{font-size:8px;font-weight:800;letter-spacing:.8px;color:#9bda58;border:1px solid #31522f;padding:5px 7px;border-radius:5px}
+.filterBar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.filterBar button{border:1px solid var(--line-2);background:#0b1510;color:#637269;padding:7px 11px;border-radius:6px;font-size:10px;cursor:pointer}
+.filterBar button.filterActive{background:#101d15;border-color:#31522f;color:#9bda58}
+.modal textarea{width:100%;min-height:80px;resize:vertical;background:#0e1813;border:1px solid var(--line-2);color:#edf3ee;border-radius:7px;padding:9px;font:inherit}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.dangerBtn{border:1px solid rgba(224,123,109,.4);background:rgba(224,123,109,.1);color:#e07b6d;padding:9px 12px;border-radius:7px;cursor:pointer}
+
+/* Job Monitoring schedule-management modal */
+.modal .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal .fields>*:last-child{grid-column:1/-1}
+@media(max-width:650px){.modal .fields{grid-template-columns:1fr}.modal .fields>*:last-child{grid-column:auto}}
+
+/* ---------- Login registration ---------- */
+.authSwitch{margin-top:18px;text-align:center;color:var(--muted);font-size:11px}
+.authSwitch button{border:0;background:none;color:var(--brand-text);font:inherit;font-weight:700;cursor:pointer;padding:0}
+.authSwitch button:hover{text-decoration:underline}
+.registerGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin:18px 0}
+.registerGrid label{display:grid;gap:6px}
+.registerGrid label input,.registerGrid label select{width:100%}
+.formError{margin:0 0 12px;padding:9px 11px;border:1px solid rgba(224,123,109,.35);background:rgba(224,123,109,.08);color:#e07b6d;border-radius:7px;font-size:10px}
+@media(max-width:650px){.registerGrid{grid-template-columns:1fr}}
